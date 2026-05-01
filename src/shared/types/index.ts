@@ -1,5 +1,6 @@
 export interface IParams {
   page?: number;
+  name?: string;
 }
 
 export interface IInfo {
