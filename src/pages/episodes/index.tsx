@@ -17,7 +17,13 @@ const EpisodesPage = () => {
             <div className="container mx-auto py-8 px-3">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {data?.results?.map((el) => (
-                        <EpisodeCard id={el?.id} name={el?.name} airDate={el?.air_date} episodeCode={el?.episode} />
+                        <EpisodeCard
+                            id={el?.id}
+                            key={el?.id}
+                            name={el?.name}
+                            airDate={el?.air_date}
+                            episodeCode={el?.episode}
+                        />
                     ))}
                 </div>
             </div>

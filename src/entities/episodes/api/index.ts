@@ -1,5 +1,6 @@
 import { IEpisode } from "../types";
 import { baseApi } from "@/app/api/baseApi";
+import { ICharacter } from "@/entities/characters/types";
 import { ApiResponse, IParams } from "@/shared/types";
 
 export const episodesApi = baseApi.injectEndpoints({
@@ -11,7 +12,14 @@ export const episodesApi = baseApi.injectEndpoints({
     getEpisodeById: builder.query<IEpisode, number>({
       query: (id) => `/episode/${id}`,
     }),
+    getCharactersByIds: builder.query<ICharacter[], number[]>({
+      query: (ids) => `/character/${ids.join(",")}`,
+    }),
   }),
 });
 
-export const { useGetEpisodesQuery, useGetEpisodeByIdQuery } = episodesApi;
+export const {
+  useGetEpisodesQuery,
+  useGetEpisodeByIdQuery,
+  useGetCharactersByIdsQuery,
+} = episodesApi;
