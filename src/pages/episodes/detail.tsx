@@ -1,17 +1,18 @@
-import { useParams, Link } from 'react-router-dom';
-import { useGetCharactersByIdsQuery, useGetEpisodeByIdQuery } from '@/entities/episodes/api';
+import { Link } from 'react-router-dom';
+import { Modal } from '@/shared/ui/modal';
+import { CharacterModal } from '@/entities/characters/ui/characterModal';
+import useEdpisodeDetail from '@/entities/episodes/model/useEpisodeDetail';
 
 const EpisodeDetailsPage = () => {
-    const { id } = useParams();
-    const { data: episode, isLoading: isEpisodeLoading } = useGetEpisodeByIdQuery(Number(id));
-
-    // Извлекаем ID персонажей из URL (https://.../character/1 -> 1)
-    const characterIds = episode?.characters.map(url => Number(url.split('/').pop())) || [];
-
-    // Получаем данные всех персонажей этого эпизода
-    const { data: characters, isLoading: isCharsLoading } = useGetCharactersByIdsQuery(characterIds, {
-        skip: !characterIds.length // Не делаем запрос, пока нет ID
-    });
+    const {
+        episode,
+        characters,
+        characterIds,
+        isCharsLoading,
+        isEpisodeLoading,
+        selectedCharacter,
+        setSelectedCharacter
+    } = useEdpisodeDetail()
 
     if (isEpisodeLoading) return <div className="p-20 text-center text-lime-400 animate-pulse">Opening portal...</div>;
 
@@ -56,10 +57,10 @@ const EpisodeDetailsPage = () => {
                 ) : (
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
                         {characters?.map((char) => (
-                            <Link
+                            <button
                                 key={char.id}
-                                to={`/character/${char.id}`}
-                                className="group bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 hover:border-lime-400/50 transition-all duration-300"
+                                onClick={() => setSelectedCharacter(char)}
+                                className="group bg-slate-900 rounded-2xl overflow-hidden cursor-pointer outline-none border border-slate-800 hover:border-lime-400/50 transition-all duration-300"
                             >
                                 <div className="aspect-square overflow-hidden">
                                     <img
@@ -76,11 +77,17 @@ const EpisodeDetailsPage = () => {
                                         {char.species} — {char.status}
                                     </p>
                                 </div>
-                            </Link>
+                            </button>
                         ))}
                     </div>
                 )}
             </div>
+            <Modal
+                isOpen={!!selectedCharacter}
+                onClose={() => setSelectedCharacter(null)}
+            >
+                {selectedCharacter && <CharacterModal character={selectedCharacter} />}
+            </Modal>
         </div>
     );
 };
