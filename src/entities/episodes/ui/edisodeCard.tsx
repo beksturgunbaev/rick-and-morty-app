@@ -1,7 +1,9 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 // Типизация данных согласно API Rick and Morty
 interface EpisodeCardProps {
+    id: number;
     name: string;      // Название: "Pilot"
     airDate: string;   // Дата выхода: "December 2, 2013"
     episodeCode: string; // Код: "S01E01"
@@ -9,6 +11,7 @@ interface EpisodeCardProps {
 }
 
 export const EpisodeCard: React.FC<EpisodeCardProps> = ({
+    id,
     name,
     airDate,
     episodeCode,
@@ -20,9 +23,9 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({
     const episodeNumber = seasonMatch ? parseInt(seasonMatch[2], 10) : '?';
 
     return (
-        <div
+        <NavLink to={`/episode/${id}`}
             onClick={onClick}
-            className="group relative cursor-pointer overflow-hidden rounded-2xl bg-slate-900 border border-slate-800 p-5 transition-all duration-300 hover:border-lime-400/50 hover:shadow-[0_0_20px_rgba(163,230,53,0.15)] active:scale-[0.98]"
+            className="group relative cursor-pointer overflow-hidden rounded-2xl bg-slate-800 border border-slate-700 p-5 transition-all duration-300 hover:border-lime-400/50 hover:shadow-[0_0_20px_rgba(163,230,53,0.15)] active:scale-[0.98]"
         >
             {/* Декоративный фон при наведении */}
             <div className="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-lime-400/5 blur-3xl transition-opacity group-hover:opacity-100" />
@@ -68,6 +71,6 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({
                     </svg>
                 </span>
             </div>
-        </div>
+        </NavLink>
     );
 };

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export const Header = () => {
     return (
-        <header className="w-full bg-slate-950/50 backdrop-blur-md sticky top-0 z-50 border-b border-slate-800">
+        <header className="w-full bg-slate-950 backdrop-blur-md sticky top-0 z-50 border-b border-slate-800">
             <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-center">
                 <Link
                     to="/"
