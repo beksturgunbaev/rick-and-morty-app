@@ -8,7 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
-    publicPath: '/', 
+    publicPath: "/",
     clean: true,
   },
 
@@ -25,6 +25,14 @@ module.exports = {
         test: /\.tsx?$/,
         use: "babel-loader",
         exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/i,
+        use: [
+          "style-loader",
+          "css-loader",
+          "postcss-loader", // Он сам найдет ваш postcss.config.mjs
+        ],
       },
     ],
   },
