@@ -1,9 +1,19 @@
+import { Loader } from "@/widgets";
 import useEpisode from "@/entities/episodes/model/useEpisode"
 import { EpisodeCard } from "@/entities/episodes/ui/edisodeCard"
-import { Loader } from "@/widgets";
 
 const EpisodesPage = () => {
-    const { sortBy, setSortBy, isFetching, searchQuery, observerTarget, setSearchQuery, groupedEpisodes } = useEpisode();
+    const {
+        sortBy,
+        hasMore,
+        setSortBy,
+        isLoading,
+        isFetching,
+        searchQuery,
+        observerTarget,
+        setSearchQuery,
+        groupedEpisodes
+    } = useEpisode();
 
     return (
         <div className="bg-slate-950 min-h-screen">
@@ -18,9 +28,7 @@ const EpisodesPage = () => {
                     Interdimensional Episode Database
                 </p>
             </div>
-
             <div className="container mx-auto py-12 px-4">
-
                 {/* Панель управления: Поиск и Сортировка */}
                 <div className="flex flex-col md:flex-row gap-6 mb-12 items-center justify-between bg-slate-900/50 p-6 rounded-3xl border border-slate-800 backdrop-blur-sm">
                     {/* Поиск */}
@@ -58,7 +66,9 @@ const EpisodesPage = () => {
                 </div>
 
                 {/* Список эпизодов с группировкой */}
-                {Object.keys(groupedEpisodes).length > 0 ? (
+                {isLoading || isFetching ? <div className="flex justify-center items-center pt-16">
+                    <Loader />
+                </div> : Object.keys(groupedEpisodes).length > 0 ? (
                     Object.entries(groupedEpisodes).map(([season, episodes]) => (
                         <section key={season} className="mb-10">
                             <h2 className="text-3xl font-black text-white mb-8 flex items-center gap-4">
@@ -86,7 +96,7 @@ const EpisodesPage = () => {
                 )}
             </div>
             <div ref={observerTarget} className="flex justify-center items-center">
-                {isFetching && <Loader />}
+                {hasMore && isFetching && <Loader />}
             </div>
         </div>
     );
