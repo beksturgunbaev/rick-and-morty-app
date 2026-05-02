@@ -12,4 +12,8 @@ export const router = createBrowserRouter(
       </Route>
     </>
   ),
+  {
+    // Добавляем basename здесь
+    basename: "/rick-and-morty-app",
+  }
 );
