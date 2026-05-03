@@ -7,8 +7,9 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
-    publicPath: './',
+    filename: "[name].bundle.js",
+    chunkFilename: "[name].chunk.js",
+    publicPath: "/rick-and-morty-app/",
     clean: true,
   },
 
