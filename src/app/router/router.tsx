@@ -2,6 +2,7 @@ import Layout from '../layout';
 import { EpisodeDetailsPage, EpisodesPage } from '@/pages';
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 
+// argv.mode будет 'production' при сборке и 'development' при запуске devServer
 const isProd = process.env.NODE_ENV === 'production';
 
 export const router = createBrowserRouter(
