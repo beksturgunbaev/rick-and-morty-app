@@ -1,6 +1,8 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
+const isProd = process.env.NODE_ENV === 'production';
+
 module.exports = {
   mode: "development",
   entry: "./src/app/index.tsx",
@@ -9,7 +11,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].bundle.js",
     chunkFilename: "[name].chunk.js",
-    publicPath: "/rick-and-morty-app/",
+    publicPath: isProd ? "/rick-and-morty-app/" : "/",
     clean: true,
   },
 
