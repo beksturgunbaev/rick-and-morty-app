@@ -3,7 +3,7 @@ import { EpisodeDetailsPage, EpisodesPage } from '@/pages';
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 
 // argv.mode будет 'production' при сборке и 'development' при запуске devServer
-const isProd = process.env.NODE_ENV === 'production';
+const isDev = process.env.NODE_ENV === 'development';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,6 +16,6 @@ export const router = createBrowserRouter(
   ),
   {
     // Добавляем basename здесь
-    basename: isProd ? "/rick-and-morty-app/" : "/",
+    basename: isDev ? "/" : "/rick-and-morty-app",
   }
 );

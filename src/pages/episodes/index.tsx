@@ -15,6 +15,8 @@ const EpisodesPage = () => {
         groupedEpisodes
     } = useEpisode();
 
+    console.log('server', process.env.NODE_ENV)
+
     return (
         <div className="bg-slate-950 min-h-screen">
             {/* Hero Section */}

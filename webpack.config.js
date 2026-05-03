@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 // argv.mode будет 'production' при сборке и 'development' при запуске devServer
-const isProd = process.env.NODE_ENV === "production";
+const isDev = process.env.NODE_ENV === "development";
 
 module.exports = {
   mode: "development",
@@ -12,7 +12,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].bundle.js",
     chunkFilename: "[name].chunk.js",
-    publicPath: isProd ? "/rick-and-morty-app/" : "/",
+    publicPath: isDev ? "/" : "/rick-and-morty-app",
     clean: true,
   },
 
